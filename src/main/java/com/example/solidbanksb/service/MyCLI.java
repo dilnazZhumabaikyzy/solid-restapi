@@ -1,6 +1,7 @@
 package com.example.solidbanksb.service;
 
 import com.example.solidbanksb.model.Account.AccountType;
+import com.example.solidbanksb.model.Account.SavingAccount;
 import com.example.solidbanksb.model.CLIUI;
 import com.example.solidbanksb.model.TransactionTransfer.TransferResult;
 import com.example.solidbanksb.model.TransactionTransfer.TransferType;
@@ -19,15 +20,31 @@ public class MyCLI implements CLIUI {
 
     @Override
     public AccountType requestAccountType() {
-        return AccountType.valueOf(scanner.nextLine());
+       try{
+           System.out.println("Choose account type: [CHECKING, SAVING, FIXED]");
+           String accountType = scanner.nextLine().toUpperCase();
+           return switch (accountType) {
+               case "SAVING" -> AccountType.valueOf("SAVING");
+               case "CHECKING" -> AccountType.valueOf("CHECKING");
+               case "FIXED" -> AccountType.valueOf("FIXED");
+               default -> throw new IllegalArgumentException("Invalid account type");
+           };
+       } catch (IllegalArgumentException e) {
+           System.out.println("Invalid account type.");
+           return requestAccountType();
+       }
     }
+
+
     @Override
     public double requestClientAmount(){
+        System.out.println("Write amount: ");
         return Double.parseDouble(scanner.nextLine());
     }
 
     @Override
     public String requestClientAccountNumber() {
+        System.out.println("Write account number:");
         return scanner.nextLine();
     }
 
@@ -42,36 +59,41 @@ public class MyCLI implements CLIUI {
 
 
     @Override
-    public TransferResult processTransferType(TransferType transferType, String clientId) {
+    public TransferResult processTransfer(TransferType transferType, String clientId) {
         TransferResult transferResult = new TransferResult();
         switch (transferType){
             case TRANSFER_TO_ANOTHER_CLIENT_ACCOUNT -> {
-                System.out.println("Write client accounts id transfer to");
-                transferResult.setToClientId(scanner.nextLine());
-                System.out.println("Write client accounts type transfer to");
-                transferResult.setToAccountType(AccountType.valueOf(scanner.nextLine()));
-                System.out.println("Write client accounts number transfer to");
-                transferResult.setToAccountNumber(scanner.nextLine());
+                transferResult.setToClientId(requestClientId());
             }
             case TRANSFER_BETWEEN_OWN_ACCOUNTS -> {
                 transferResult.setToClientId(clientId);
-                System.out.println("Write accounts type transfer to");
-                transferResult.setToAccountType(AccountType.valueOf(scanner.nextLine()));
-                System.out.println("Write accounts number transfer to");
-                transferResult.setToAccountNumber(scanner.nextLine());
             }
         }
+        transferResult.setToAccountType(requestAccountType());
+        transferResult.setToAccountNumber(requestClientAccountNumber());
         return transferResult;
     }
 
     @Override
-    public TransferType requestTransferType(int option) {
-        TransferType transferType = null;
-        switch (option) {
-            case 1: transferType = TransferType.TRANSFER_TO_ANOTHER_CLIENT_ACCOUNT;
-            case 2: transferType = TransferType.TRANSFER_BETWEEN_OWN_ACCOUNTS;
-        }
+    public TransferType requestTransferType() {
+        try{
+            System.out.println("Choose the option:");
+            System.out.println("1. Transfer to another client's account");
+            System.out.println("2. Transfer between own accounts");
+            int transferOption = scanner.nextInt();
 
-        return transferType;
+            return switch(transferOption) {
+                case 1 -> TransferType.TRANSFER_TO_ANOTHER_CLIENT_ACCOUNT;
+                case 2 -> TransferType.TRANSFER_BETWEEN_OWN_ACCOUNTS;
+                default -> throw new IllegalArgumentException("Invalid account type");
+            };
+        }
+            catch (IllegalArgumentException e) {
+                System.out.println("Invalid account type.");
+                return requestTransferType();
+            }
+
     }
+
+    public String requestClientId() {return scanner.nextLine();}
 }

@@ -3,16 +3,14 @@ package com.example.solidbanksb.model.Account;
 //import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+
 
 
 @NoArgsConstructor
 @Data
-@Entity
-@Table(name = "ACCOUNTTEST")
 public class AccountTest {
 
-    private  @Id String id;
+    private  String id;
     private AccountType accountType;
     private String clientId;
     private double balance = 0;

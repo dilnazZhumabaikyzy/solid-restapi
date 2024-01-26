@@ -26,8 +26,6 @@ public class MemoryAccountDao implements AccountDao{
 
     @Override
     public void createNewAccount(Account account) {
-        System.out.println("Account creation...");
-        System.out.println(account.getId());
         accountRepository.save(account);
         System.out.println("Bank account created successfully");
     }
@@ -35,7 +33,7 @@ public class MemoryAccountDao implements AccountDao{
     @Override
     public void updateAccount(Account account) {
         try {
-            Account acc = accountRepository.findById(account.getId()).orElseThrow(() -> new Exception("Account not found"));
+            Account acc = (Account) accountRepository.findById(account.getId()).orElseThrow(() -> new Exception("Account not found"));
             acc.setAccountType(account.getAccountType());
             acc.setBalance(account.getBalance());
             acc.setWithdrawAllowed(account.isWithdrawAllowed());
@@ -47,8 +45,8 @@ public class MemoryAccountDao implements AccountDao{
 
     @Override
     public List<Account> getClientAccountsByType(String clientId, AccountType accountType) {
-        accountRepository.findByClientIdAndAccountType(clientId, accountType);
-        List<Account> filteredAccounts = accountRepository.findByClientIdAndAccountType(clientId, accountType);
+        accountRepository.findByClientIdAndAccountType(clientId, accountType.getType());
+        List<Account> filteredAccounts = accountRepository.findByClientIdAndAccountType(clientId, accountType.getType());
 
         if (filteredAccounts.isEmpty()) {
             throw new NoSuchElementException("No accounts found for client " + clientId + " with account type " + accountType);
@@ -59,7 +57,7 @@ public class MemoryAccountDao implements AccountDao{
 
     @Override
     public AccountWithdraw getClientWithdrawAccount(String clientId, String accountId) {
-        Account account = accountRepository.findByClientIdAndAccountId(clientId, accountId);
+        Account account = accountRepository.findByClientIdAndId(clientId, accountId);
 
         if (account == null) {
             throw new NoSuchElementException("No withdraw account found for client " + clientId + " with account id " + accountId);
@@ -70,7 +68,7 @@ public class MemoryAccountDao implements AccountDao{
 
     @Override
     public Account getClientAccount(String clientId, String accountId) {
-        Account account = accountRepository.findByClientIdAndAccountId(clientId, accountId);
+        Account account = accountRepository.findByClientIdAndId(clientId, accountId);
 
         if (account == null) {
             throw new NoSuchElementException("No account found for client " + clientId + " with account id " + accountId);

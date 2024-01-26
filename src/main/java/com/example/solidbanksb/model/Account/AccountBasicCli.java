@@ -30,6 +30,7 @@ public class AccountBasicCli {
         if(accountsList.isEmpty()){
             System.out.println("No accounts found for client " + clientId);
         } else {
+            System.out.println("Accounts for client: " + clientId);
            for(Account account: accountsList){
                System.out.println(account);
                System.out.println("-----------------------------------");
