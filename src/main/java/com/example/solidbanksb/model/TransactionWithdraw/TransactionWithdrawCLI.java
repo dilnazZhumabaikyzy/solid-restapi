@@ -23,15 +23,10 @@ public class TransactionWithdrawCLI {
         @Autowired
         TransactionWithdraw transactionWithdraw;
 
-        public void withdrawMoney(double amount, AccountType accountTypeChoice, String accountNumber, String clientId) throws Exception {
-        List<Account> accounts = accountListingService.getClientAccountsByType(clientId,accountTypeChoice);
+        public void withdrawMoney(double amount, String accountNumber) throws Exception {
+                Account account = accountListingService.getClientAccount(accountNumber);
 
-        Account account = accounts.stream()
-                .filter(acc -> acc.getId().equals(accountNumber))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Account not found: " + accountNumber));
-
-        transactionWithdraw.execute(account, amount);
-    }
+                transactionWithdraw.execute(account, amount);
+        }
 
 }

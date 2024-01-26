@@ -8,8 +8,8 @@ import com.example.solidbanksb.model.Account.AccountWithdraw;
 import java.util.List;
 
 public interface AccountListingService {
-    Account getClientAccount(String clientId, String accountId);
-    AccountWithdraw getClientWithdrawAccount(String clientId, String accountId);
+    Account getClientAccount(String accountId);
+    AccountWithdraw getClientWithdrawAccount(String accountId);
     List<Account> getClientAccounts(String clientId);
     List<Account> getClientAccountsByType(String clientId, AccountType accountType);
 

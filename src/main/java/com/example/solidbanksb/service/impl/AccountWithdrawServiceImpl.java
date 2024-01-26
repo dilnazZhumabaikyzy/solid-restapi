@@ -12,11 +12,28 @@ public class AccountWithdrawServiceImpl implements AccountWithdrawService {
     private AccountDao accountDao;
 
     @Override
-    public void withdraw(double amount, Account account) throws Exception {
-        double newBalance = account.getBalance() - amount;
-        if(newBalance < 0){
-           throw new Exception("Unable to complete the withdrawal operation. Account balance is too low.");
+    public boolean withdraw(double amount, Account account) throws Exception {
+        if (!account.isWithdrawAllowed()){
+            throw new Exception("Withdraw is not allowed");
         }
-        account.setBalance(newBalance);
+
+        System.out.println("\nOld balance -------- " + account.getBalance());
+        System.out.println("Transfer amount ------- "  + amount);
+
+        double newBalance = account.getBalance() - amount;
+        System.out.println("New Balance --------- "+newBalance+"\n");
+
+        try {
+            if(newBalance < 0){
+                throw new Exception("Unable to complete the withdrawal operation. Account balance is too low.");
+            }
+            account.setBalance(newBalance);
+            accountDao.updateAccount(account);
+            return true;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

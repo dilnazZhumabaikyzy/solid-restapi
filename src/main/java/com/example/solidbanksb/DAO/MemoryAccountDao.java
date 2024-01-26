@@ -31,16 +31,13 @@ public class MemoryAccountDao implements AccountDao{
     }
 
     @Override
-    public void updateAccount(Account account) {
-        try {
+    public void updateAccount(Account account) throws Exception {
             Account acc = (Account) accountRepository.findById(account.getId()).orElseThrow(() -> new Exception("Account not found"));
             acc.setAccountType(account.getAccountType());
             acc.setBalance(account.getBalance());
             acc.setWithdrawAllowed(account.isWithdrawAllowed());
+            accountRepository.save(acc);
             System.out.println("Bank account updated successfully");
-        } catch (Exception e) {
-            e.getMessage();
-        }
     }
 
     @Override
@@ -67,13 +64,7 @@ public class MemoryAccountDao implements AccountDao{
     }
 
     @Override
-    public Account getClientAccount(String clientId, String accountId) {
-        Account account = accountRepository.findByClientIdAndId(clientId, accountId);
-
-        if (account == null) {
-            throw new NoSuchElementException("No account found for client " + clientId + " with account id " + accountId);
-        }
-
-        return account;
+    public Account getClientAccount(String accountId) {
+        return accountRepository.findById(accountId).orElseThrow(()-> new NoSuchElementException("No account found with id: " + accountId));
     }
 }

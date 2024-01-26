@@ -24,28 +24,12 @@ public class TransactionTransferCLI {
     TransactionTransfer transactionTransfer;
 
 
-    public void transfer(double transferAmount, AccountType fromAccountType, String fromAccountNumber, String clientId, AccountType toAccountType, String toAccountNumber, String toClientId, TransferType transferType) throws Exception {
-        if(!Objects.equals(clientId, toClientId))
-            transferAmount *= 1.15;
+    public void transfer(String fromAccountNumber, String toAccountNumber, double transferAmount) throws Exception {
 
-        if(transferType.equals(TransferType.TRANSFER_BETWEEN_OWN_ACCOUNTS)){
-            List<Account> fromAccounts = accountListingService.getClientAccountsByType(clientId,fromAccountType);
+        Account fromAccount = accountListingService.getClientAccount(fromAccountNumber);
+        Account toAccount = accountListingService.getClientAccount(toAccountNumber);
 
-            Account fromAccount = fromAccounts.stream()
-                    .filter(acc -> acc.getId().equals(fromAccountNumber))
-                    .findFirst()
-                    .orElseThrow(() -> new NoSuchElementException("Account not found: " + fromAccountNumber));
-
-            List<Account> toAccounts = accountListingService.getClientAccountsByType(toClientId,toAccountType);
-
-            Account toAccount = toAccounts.stream()
-                    .filter(acc -> acc.getId().equals(toAccountNumber))
-                    .findFirst()
-                    .orElseThrow(() -> new NoSuchElementException("Account not found: " + toAccountNumber));
-
-            transactionTransfer.execute(fromAccount, toAccount, transferAmount);
-
-        }
+        transactionTransfer.execute(fromAccount, toAccount, transferAmount);
 
     }
 }

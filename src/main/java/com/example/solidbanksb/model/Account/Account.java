@@ -22,14 +22,13 @@ public class Account {
 
 
 
-//    @Override
-//    public String toString() {
-//        return "\nAccount information \n" +
-//                " - accountType: " + accountType +
-//                " - id: " + id +
-////                " - id: " + String.format("%03d%06d\n", 1, Integer.parseInt(id)) +
-//                " - clientId: " + clientId + "\n"+
-//                " - balance: " + balance +  "\n"+
-//                " - withdrawAllowed=" + withdrawAllowed;
-//    }
+    @Override
+    public String toString() {
+        return "\nAccount information \n" +
+                " - accountType: " + accountType + "\n" +
+                " - id: " + id + "\n" +
+                " - clientId: " + clientId + "\n"+
+                " - balance: " + balance +  "\n"+
+                " - withdrawAllowed=" + withdrawAllowed;
+    }
 }

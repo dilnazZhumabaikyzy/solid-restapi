@@ -4,6 +4,7 @@ import com.example.solidbanksb.model.Account.Account;
 import com.example.solidbanksb.model.Account.AccountBasicCli;
 import com.example.solidbanksb.model.Account.AccountRepository;
 import com.example.solidbanksb.model.Account.AccountType;
+import com.example.solidbanksb.model.Transaction.TransactionManagerCLI;
 import com.example.solidbanksb.model.TransactionDeposit.TransactionDepositCLI;
 import com.example.solidbanksb.model.TransactionTransfer.TransactionTransferCLI;
 import com.example.solidbanksb.model.TransactionTransfer.TransferResult;
@@ -22,7 +23,7 @@ import org.springframework.context.ApplicationContext;
 
 public class SolidbankSbApplication  implements CommandLineRunner {
 
-    final static String HELPER_MSG = "1 - showAccounts\n2 - create account\n3 - deposit\n4 - withdraw\n5 - transfer\n6 - this message\n7 - exit\n8 - test accountRepository";
+    final static String HELPER_MSG = "1 - showAccounts\n2 - create account\n3 - deposit\n4 - withdraw\n5 - transfer\n6 - show my transactions\n7 - show all transactions\n8 - this message\n9 - change client ID\n10 - exit";
 
     @Autowired
     AccountBasicCli accountBasicCli;
@@ -33,7 +34,7 @@ public class SolidbankSbApplication  implements CommandLineRunner {
     @Autowired
     TransactionTransferCLI transactionTransferCLI;
     @Autowired
-    private AccountRepository accountRepository;
+    private TransactionManagerCLI transactionManagerCLI;
     @Autowired
     private MyCLI myCLI;
 
@@ -65,48 +66,52 @@ public class SolidbankSbApplication  implements CommandLineRunner {
                         accountBasicCli.createAccountRequest(myCLI.requestAccountType(), clientId);
                         break;
                     case "3":{
-                        AccountType accountType = myCLI.requestAccountType();
                         String accountNumber= myCLI.requestClientAccountNumber();
                         double depositAmount = myCLI.requestClientAmount();
 
-                        transactionDepositCLI.depositMoney(depositAmount, accountType, accountNumber, clientId);
+                        transactionDepositCLI.depositMoney(accountNumber, depositAmount);
                         break;
                     }
                     case "4":
-                        AccountType accountType = myCLI.requestAccountType();
+//                      //CHECKING, SAVING
                         String accountNumber= myCLI.requestClientAccountNumber();
                         double withdrawAmount = myCLI.requestClientAmount();
 
-                        transactionWithdrawCLI.withdrawMoney(withdrawAmount, accountType, accountNumber, clientId);
+                        transactionWithdrawCLI.withdrawMoney(withdrawAmount,accountNumber);
                         break;
                     case "5":{
-                        TransferType transferType = myCLI.requestTransferType();
-                        AccountType fromAccountTypeChoice = myCLI.requestAccountType();
                         String fromAccountNumber= myCLI.requestClientAccountNumber();
                         double transferAmount = myCLI.requestClientAmount();
 
+                        TransferType transferType = myCLI.requestTransferType();
 
-                        TransferResult transferResult = myCLI.processTransfer(transferType, clientId);
+                        TransferResult transferResult = myCLI.processTransfer(transferType, clientId, transferAmount);
 
 
-                        transactionTransferCLI.transfer(transferAmount,
-                                fromAccountTypeChoice,
+                        transactionTransferCLI.transfer(
                                 fromAccountNumber,
-                                clientId,
-                                transferResult.getToAccountType(),
                                 transferResult.getToAccountNumber(),
-                                transferResult.getToClientId(),
-                                transferType);
+                                transferResult.getTransferAmount()
+                        );
                         break;
                     }
-
                     case "6":
+                        transactionManagerCLI.getTransactionsForClient(clientId);
+                       break;
+                    case "7":
+                        transactionManagerCLI.getAllTransactions();
+                        break;
+                    case "8":
                         System.out.println(HELPER_MSG);
                         break;
-                    case "7":
+                    case "9":
+                        System.out.println("\nWrite Your client ID:");
+                        clientId = myCLI.requestClientId();
+                        break;
+                    case "10":
                         running = false;
                         System.out.println("Exit");
-
+                        System.exit(0);
                 }
             }
             catch (Exception e){

@@ -2,7 +2,7 @@ package com.example.solidbanksb.model.Transaction;
 
 public enum TransactionType {
     DEPOSIT("DEPOSIT"),
-    WITHDRAW("WITHDRAW"),
+    WITHDRAWAL("WITHDRAWAL"),
     TRANSFER("TRANSFER");
     private String type;
 

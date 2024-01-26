@@ -24,14 +24,25 @@ public class TransactionTransfer {
     AccountWithdrawService accountWithdrawService;
 
 
-    public void execute(Account fromAccount, Account toAccount, double transferAmount) throws Exception {
-        accountWithdrawService.withdraw(transferAmount, fromAccount);
-        accountDepositService.deposit(transferAmount, toAccount);
 
-        Transaction transaction = new Transaction(new Date(), TransactionType.TRANSFER, fromAccount);
+    public void execute(Account fromAccount, Account toAccount, double transferAmount) throws Exception {
+        boolean withdrawStatus = accountWithdrawService.withdraw(transferAmount, fromAccount);
+        boolean depositStatus = false;
+        if (withdrawStatus){
+            depositStatus = accountDepositService.deposit(transferAmount, toAccount);
+        }
+
+
+        Transaction transaction = new Transaction();
+        transaction.setDate(new Date());
+        transaction.setTransactionType(TransactionType.TRANSFER.getType());
+        transaction.setClientId(fromAccount.getClientId());
+        transaction.setAmount(transferAmount);
+        transaction.setStatus(withdrawStatus && depositStatus ? "SUCCESSFULLY" : "DECLINED");
+
         transactionDao.addTransaction(transaction);
 
-        System.out.println("Transaction succesfully created");
+        System.out.println("Transaction created");
         System.out.println("Info: " + transaction);
     }
 

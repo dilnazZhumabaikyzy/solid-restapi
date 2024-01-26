@@ -15,4 +15,5 @@ public class TransferResult {
     private AccountType toAccountType;
     private  String toAccountNumber;
     private  String toClientId;
+    private double transferAmount;
 }

@@ -44,7 +44,7 @@ public class MyCLI implements CLIUI {
 
     @Override
     public String requestClientAccountNumber() {
-        System.out.println("Write account number:");
+        System.out.println("Write account number: ");
         return scanner.nextLine();
     }
 
@@ -59,17 +59,18 @@ public class MyCLI implements CLIUI {
 
 
     @Override
-    public TransferResult processTransfer(TransferType transferType, String clientId) {
+    public TransferResult processTransfer(TransferType transferType, String clientId, double transferAmount) {
         TransferResult transferResult = new TransferResult();
         switch (transferType){
             case TRANSFER_TO_ANOTHER_CLIENT_ACCOUNT -> {
+                transferAmount *= 1.15;
                 transferResult.setToClientId(requestClientId());
             }
             case TRANSFER_BETWEEN_OWN_ACCOUNTS -> {
                 transferResult.setToClientId(clientId);
             }
         }
-        transferResult.setToAccountType(requestAccountType());
+        transferResult.setTransferAmount(transferAmount);
         transferResult.setToAccountNumber(requestClientAccountNumber());
         return transferResult;
     }
@@ -81,6 +82,7 @@ public class MyCLI implements CLIUI {
             System.out.println("1. Transfer to another client's account");
             System.out.println("2. Transfer between own accounts");
             int transferOption = scanner.nextInt();
+            scanner.nextLine();
 
             return switch(transferOption) {
                 case 1 -> TransferType.TRANSFER_TO_ANOTHER_CLIENT_ACCOUNT;

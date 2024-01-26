@@ -21,13 +21,8 @@ public class TransactionDepositCLI{
     @Autowired
     TransactionDeposit transactionDeposit;
 
-    public void depositMoney(double amount, AccountType accountTypeChoice, String accountNumber, String clientId) {
-        List<Account> accounts = accountListingService.getClientAccountsByType(clientId,accountTypeChoice);
-
-        Account account = accounts.stream()
-                                            .filter(acc -> acc.getId().equals(accountNumber))
-                                            .findFirst()
-                                            .orElseThrow(() -> new NoSuchElementException("Account not found: " + accountNumber));
+    public void depositMoney(String accountNumber, double amount) {
+        Account account= accountListingService.getClientAccount(accountNumber);
 
         transactionDeposit.execute(account, amount);
     }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface TransactionDao {
     List<Transaction> getTransactions();
     void addTransaction(Transaction transaction);
+
+    List<Transaction> getTransactionsByClientId(String client_id);
 }

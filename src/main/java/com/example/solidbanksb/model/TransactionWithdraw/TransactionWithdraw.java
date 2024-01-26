@@ -20,12 +20,17 @@ public class TransactionWithdraw {
     @Autowired
     AccountWithdrawService accountWithdrawService;
     public void execute(Account account, double amount) throws Exception {
-        accountWithdrawService.withdraw(amount, account);
 
-        Transaction transaction = new Transaction(new Date(), TransactionType.WITHDRAW, account);
+        boolean status =  accountWithdrawService.withdraw(amount, account);
+
+        Transaction transaction = new Transaction();
+        transaction.setDate(new Date());
+        transaction.setTransactionType(TransactionType.WITHDRAWAL.getType());
+        transaction.setClientId(account.getClientId());
+        transaction.setStatus(status ? "SUCCESSFULLY" : "DECLINED");
         transactionDao.addTransaction(transaction);
 
-        System.out.println("Transaction succesfully created");
+        System.out.println("\nTransaction successfully created");
         System.out.println("Info: " + transaction);
     }
 

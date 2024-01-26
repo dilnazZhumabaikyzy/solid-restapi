@@ -20,12 +20,17 @@ public class TransactionDeposit {
     @Autowired
     AccountDepositService accountDepositService;
     public void execute(Account account, double amount){
-        accountDepositService.deposit(amount, account);
+        boolean status = accountDepositService.deposit(amount, account);
 
-        Transaction transaction = new Transaction(new Date(), TransactionType.DEPOSIT, account);
+        Transaction transaction = new Transaction();
+        transaction.setDate(new Date());
+        transaction.setTransactionType(TransactionType.DEPOSIT.getType());
+        transaction.setClientId(account.getClientId());
+        transaction.setAmount(amount);
+        transaction.setStatus(status ? "SUCCESSFULLY" : "DECLINED");
         transactionDao.addTransaction(transaction);
 
-        System.out.println("Transaction succesfully created");
+        System.out.println("Transaction created");
         System.out.println("Info: " + transaction);
     }
 

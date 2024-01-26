@@ -16,8 +16,15 @@ public class AccountDepositServiceImpl implements AccountDepositService {
 
 
     @Override
-    public void deposit(double amount, Account account) {
+    public boolean deposit(double amount, Account account) {
         double newBalance = account.getBalance() + amount;
         account.setBalance(newBalance);
+        try {
+            accountDao.updateAccount(account);
+            return true;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
