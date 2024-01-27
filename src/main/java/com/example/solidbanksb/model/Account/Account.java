@@ -12,6 +12,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @Entity
+@Builder
 public class Account {
 
     private @Id String id;

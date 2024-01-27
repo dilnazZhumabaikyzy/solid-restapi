@@ -19,8 +19,8 @@ public class TransactionDeposit {
     TransactionDao transactionDao;
     @Autowired
     AccountDepositService accountDepositService;
-    public void execute(Account account, double amount){
-        boolean status = accountDepositService.deposit(amount, account);
+    public void execute(Account account, double amount) throws Exception {
+        boolean status = accountDepositService.deposit(amount, account.getId());
 
         Transaction transaction = new Transaction();
         transaction.setDate(new Date());

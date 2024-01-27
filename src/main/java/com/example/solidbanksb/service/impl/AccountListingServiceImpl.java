@@ -20,7 +20,7 @@ public class AccountListingServiceImpl implements AccountListingService {
     }
 
     @Override
-    public Account getClientAccount(String accountId) {
+    public Account getClientAccount(String accountId) throws Exception {
        return accountDao.getClientAccount(accountId);
     }
 
@@ -43,4 +43,11 @@ public class AccountListingServiceImpl implements AccountListingService {
     public AccountWithdraw getClientDepositAccount(String clientId, String accountId) {
         return null;
     }
+
+    @Override
+    public List<Account> getAccounts() {
+        return accountDao.getAccounts();
+    }
+
+
 }

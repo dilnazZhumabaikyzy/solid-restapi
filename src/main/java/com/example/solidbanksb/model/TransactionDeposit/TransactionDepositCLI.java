@@ -21,7 +21,7 @@ public class TransactionDepositCLI{
     @Autowired
     TransactionDeposit transactionDeposit;
 
-    public void depositMoney(String accountNumber, double amount) {
+    public void depositMoney(String accountNumber, double amount) throws Exception {
         Account account= accountListingService.getClientAccount(accountNumber);
 
         transactionDeposit.execute(account, amount);

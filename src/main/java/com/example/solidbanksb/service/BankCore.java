@@ -12,13 +12,13 @@ public class BankCore {
 
     @PersistenceContext
     private EntityManager entityManager;
-    AccountCreationService accountCreationService;
+    AccountService accountService;
     @Autowired
     AccountRepository accountRepository;
 
     @Autowired
-    public BankCore(AccountCreationService accountCreationService) {
-        this.accountCreationService = accountCreationService;
+    public BankCore(AccountService accountService) {
+        this.accountService = accountService;
     }
 
 
@@ -35,10 +35,10 @@ public class BankCore {
     public void createNewAccount( AccountType accountType, String clientId){
         String accountId = generateAccountId(clientId);
 
-        accountCreationService.create(accountId, accountType, clientId);
+//        accountCreationService.create(accountId, accountType, clientId);
     }
 
-    public String generateAccountId(String clientId) {
+    public  String generateAccountId(String clientId) {
         return String.format("%03d%06d", Integer.valueOf(clientId), getLastAccountId());
     }
 

@@ -21,7 +21,7 @@ public class TransactionWithdraw {
     AccountWithdrawService accountWithdrawService;
     public void execute(Account account, double amount) throws Exception {
 
-        boolean status =  accountWithdrawService.withdraw(amount, account);
+        boolean status =  accountWithdrawService.withdraw(amount, account.getId());
 
         Transaction transaction = new Transaction();
         transaction.setDate(new Date());

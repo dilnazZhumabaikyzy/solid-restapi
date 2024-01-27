@@ -5,11 +5,10 @@ import com.example.solidbanksb.model.Transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class MemoryTransactionDao implements TransactionDao{
+public class TransactionDaoImpl implements TransactionDao{
 
     @Autowired
     TransactionRepository transactions;

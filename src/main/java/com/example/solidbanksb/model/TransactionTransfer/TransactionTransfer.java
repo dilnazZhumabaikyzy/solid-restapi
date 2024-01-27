@@ -26,10 +26,10 @@ public class TransactionTransfer {
 
 
     public void execute(Account fromAccount, Account toAccount, double transferAmount) throws Exception {
-        boolean withdrawStatus = accountWithdrawService.withdraw(transferAmount, fromAccount);
+        boolean withdrawStatus = accountWithdrawService.withdraw(transferAmount, fromAccount.getId());
         boolean depositStatus = false;
         if (withdrawStatus){
-            depositStatus = accountDepositService.deposit(transferAmount, toAccount);
+            depositStatus = accountDepositService.deposit(transferAmount, toAccount.getId());
         }
 
 

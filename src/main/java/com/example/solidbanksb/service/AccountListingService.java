@@ -8,11 +8,14 @@ import com.example.solidbanksb.model.Account.AccountWithdraw;
 import java.util.List;
 
 public interface AccountListingService {
-    Account getClientAccount(String accountId);
+    Account getClientAccount(String accountId) throws Exception;
     AccountWithdraw getClientWithdrawAccount(String accountId);
     List<Account> getClientAccounts(String clientId);
     List<Account> getClientAccountsByType(String clientId, AccountType accountType);
 
     AccountWithdraw getClientDepositAccount(String clientId, String accountId);
+
+    List<Account> getAccounts();
+
 }
 
