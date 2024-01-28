@@ -1,7 +1,10 @@
-package com.example.solidbanksb.model.Transaction;
+package com.example.solidbanksb.service.impl;
 
 import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.DAO.TransactionDao;
+import com.example.solidbanksb.model.Transaction.Transaction;
+import com.example.solidbanksb.model.Transaction.TransactionType;
+import com.example.solidbanksb.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
     @Autowired
     TransactionDao transactionDao;
     @Autowired
@@ -23,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public void create(boolean status, TransactionType transactionType, double amount,String accountId){
+    public void create(boolean status, TransactionType transactionType, double amount, String accountId){
         String clientId = String.valueOf(accountId.charAt(2));
         transactionDao.addTransaction(
                 Transaction.builder()

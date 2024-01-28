@@ -1,11 +1,11 @@
-package com.example.solidbanksb.model.Account;
+package com.example.solidbanksb.controllers;
 
 import com.example.solidbanksb.ResponseMessage;
 import com.example.solidbanksb.exceptions.AccountCreationException;
 import com.example.solidbanksb.exceptions.InsufficientFundsException;
 import com.example.solidbanksb.exceptions.WithdrawalNotAllowedException;
-import com.example.solidbanksb.model.Transaction.Transaction;
-import com.example.solidbanksb.model.Transaction.TransactionService;
+import com.example.solidbanksb.model.Account.AccountRequest;
+import com.example.solidbanksb.service.TransactionService;
 import com.example.solidbanksb.model.Transaction.TransactionType;
 import com.example.solidbanksb.service.AccountDepositService;
 import com.example.solidbanksb.service.AccountService;
@@ -17,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")

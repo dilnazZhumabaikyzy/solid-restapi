@@ -1,14 +1,15 @@
-package com.example.solidbanksb.DAO;
+package com.example.solidbanksb.DAO.Impl;
 
+import com.example.solidbanksb.DAO.TransactionDao;
 import com.example.solidbanksb.model.Transaction.Transaction;
-import com.example.solidbanksb.model.Transaction.TransactionRepository;
+import com.example.solidbanksb.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class TransactionDaoImpl implements TransactionDao{
+public class TransactionDaoImpl implements TransactionDao {
 
     @Autowired
     TransactionRepository transactions;

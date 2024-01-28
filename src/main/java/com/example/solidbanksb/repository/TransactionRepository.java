@@ -1,5 +1,6 @@
-package com.example.solidbanksb.model.Transaction;
+package com.example.solidbanksb.repository;
 
+import com.example.solidbanksb.model.Transaction.Transaction;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

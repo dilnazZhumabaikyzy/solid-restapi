@@ -1,12 +1,12 @@
-package com.example.solidbanksb.DAO;
+package com.example.solidbanksb.DAO.Impl;
 
+import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.exceptions.AccountCreationException;
 import com.example.solidbanksb.exceptions.AccountNotFoundException;
 import com.example.solidbanksb.exceptions.InvalidAccountUpdateException;
 import com.example.solidbanksb.model.Account.Account;
-import com.example.solidbanksb.model.Account.AccountRepository;
+import com.example.solidbanksb.repository.AccountRepository;
 import com.example.solidbanksb.model.Account.AccountType;
-import com.example.solidbanksb.model.Account.AccountWithdraw;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 
 @Component
 @AllArgsConstructor
-public class AccountDaoImpl implements AccountDao{
+public class AccountDaoImpl implements AccountDao {
     @Autowired
     private final AccountRepository accountRepository;
     List<Account> accountList = new ArrayList<>();
@@ -62,17 +62,6 @@ public class AccountDaoImpl implements AccountDao{
         }
 
         return filteredAccounts;
-    }
-
-    @Override
-    public AccountWithdraw getClientWithdrawAccount(String clientId, String accountId) {
-        Account account = accountRepository.findByClientIdAndId(clientId, accountId);
-
-        if (account == null) {
-            throw new NoSuchElementException("No withdraw account found for client " + clientId + " with account id " + accountId);
-        }
-
-        return (AccountWithdraw) account;
     }
 
     @Override

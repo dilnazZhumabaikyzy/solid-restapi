@@ -22,7 +22,6 @@ public class Account{
     private boolean withdrawAllowed;
 
 
-
     @Override
     public String toString() {
         return "\nAccount information \n" +

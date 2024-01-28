@@ -3,7 +3,6 @@ package com.example.solidbanksb.service.impl;
 import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.model.Account.Account;
 import com.example.solidbanksb.model.Account.AccountType;
-import com.example.solidbanksb.model.Account.AccountWithdraw;
 import com.example.solidbanksb.service.AccountListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +23,7 @@ public class AccountListingServiceImpl implements AccountListingService {
        return accountDao.getClientAccount(accountId);
     }
 
-    @Override
-    public AccountWithdraw getClientWithdrawAccount( String accountId) {
-        return null;
-    }
+
 
     @Override
     public List<Account> getClientAccounts(String clientId) {
@@ -37,11 +33,6 @@ public class AccountListingServiceImpl implements AccountListingService {
     @Override
     public List<Account> getClientAccountsByType(String clientId, AccountType accountType) {
         return accountDao.getClientAccountsByType(clientId, accountType);
-    }
-
-    @Override
-    public AccountWithdraw getClientDepositAccount(String clientId, String accountId) {
-        return null;
     }
 
     @Override
