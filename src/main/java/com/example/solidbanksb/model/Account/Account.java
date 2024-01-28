@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Account {
+public class Account{
 
     private @Id String id;
     private String accountType;

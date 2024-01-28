@@ -4,9 +4,13 @@ import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.exceptions.InsufficientFundsException;
 import com.example.solidbanksb.exceptions.WithdrawalNotAllowedException;
 import com.example.solidbanksb.model.Account.Account;
+import com.example.solidbanksb.model.Transaction.Transaction;
+import com.example.solidbanksb.model.Transaction.TransactionType;
 import com.example.solidbanksb.service.AccountWithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class AccountWithdrawServiceImpl implements AccountWithdrawService {
@@ -15,6 +19,7 @@ public class AccountWithdrawServiceImpl implements AccountWithdrawService {
 
     @Override
     public boolean withdraw(double amount, String accountId) throws Exception {
+
         Account account = accountDao.getClientAccount(accountId);
         if (!account.isWithdrawAllowed()){
             throw new WithdrawalNotAllowedException(accountId);
@@ -28,6 +33,7 @@ public class AccountWithdrawServiceImpl implements AccountWithdrawService {
         }
         account.setBalance(newBalance);
         accountDao.updateAccount(account);
+
         return true;
     }
 }

@@ -1,19 +1,20 @@
 package com.example.solidbanksb.model.Transaction;
 
-import com.example.solidbanksb.model.Account.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+
 @NoArgsConstructor
 @Data
 @Entity(name = "TRANSACTION_TABLE")
-public class Transaction {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.TABLE)
+@Builder
+@AllArgsConstructor
+public class Transaction{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
