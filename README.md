@@ -1,5 +1,5 @@
 # Solid Bank REST
-The project simulates various banking transactions, including transfers, deposits, withdrawals and loan-related transactions, as well as account creation using the RESTAPI.
+The project simulates various banking transactions, including deposits, withdrawals as well as account CRUD using the RESTAPI.
 ## Prerequisites
 Java 8, Maven, Spring Tool Suite, IntelliJ IDEA
 ## Local Setup
