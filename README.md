@@ -1,5 +1,5 @@
-# Solid Bank CLI
-The project simulates various banking transactions, including transfers, deposits, withdrawals and loan-related transactions, as well as account creation using the CLI.
+# Solid Bank REST
+The project simulates various banking transactions, including transfers, deposits, withdrawals and loan-related transactions, as well as account creation using the RESTAPI.
 ## Prerequisites
 Java 8, Maven, Spring Tool Suite, IntelliJ IDEA
 ## Local Setup
