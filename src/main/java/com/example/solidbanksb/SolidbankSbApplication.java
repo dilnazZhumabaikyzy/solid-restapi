@@ -15,6 +15,6 @@ public class SolidbankSbApplication  implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) {
-
+        System.out.println("Application started. Listen on port: 8080");
     }
 }

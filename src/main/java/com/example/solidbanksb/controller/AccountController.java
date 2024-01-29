@@ -1,4 +1,4 @@
-package com.example.solidbanksb.controllers;
+package com.example.solidbanksb.controller;
 
 import com.example.solidbanksb.ResponseMessage;
 import com.example.solidbanksb.exceptions.AccountCreationException;
