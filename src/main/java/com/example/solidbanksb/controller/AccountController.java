@@ -104,6 +104,7 @@ public class AccountController {
         transactionService.create(status, TransactionType.WITHDRAWAL, Double.parseDouble(amount), account_id);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder().message(String.format("Withdrawal of %s from account ID %s successful", amount, account_id)).build());
     }
+    @Transactional
     @PostMapping("/{account_id}/deposit")
     public ResponseEntity<ResponseMessage> deposit(@PathVariable String account_id, @RequestParam("amount") String amount){
         boolean status = false;
