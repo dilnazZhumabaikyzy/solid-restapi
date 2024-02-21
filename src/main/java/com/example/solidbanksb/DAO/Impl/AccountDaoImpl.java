@@ -5,6 +5,7 @@ import com.example.solidbanksb.exceptions.AccountCreationException;
 import com.example.solidbanksb.exceptions.AccountNotFoundException;
 import com.example.solidbanksb.exceptions.InvalidAccountUpdateException;
 import com.example.solidbanksb.model.Account.Account;
+import com.example.solidbanksb.model.Account.AccountDTO;
 import com.example.solidbanksb.repository.AccountRepository;
 import com.example.solidbanksb.model.Account.AccountType;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -22,8 +24,20 @@ public class AccountDaoImpl implements AccountDao {
     private final AccountRepository accountRepository;
     List<Account> accountList = new ArrayList<>();
     @Override
-    public List<Account> getClientAccounts(Integer clientId) {
-        return (List<Account>) accountRepository.findByClientId(clientId);
+    public List<AccountDTO> getClientAccounts(Integer clientId) {
+
+        List<Account> accounts = (List<Account>) accountRepository.findByClientId(clientId);
+        List<AccountDTO> accountDTOS = accounts.stream()
+                                                        .map(account -> AccountDTO.builder()
+                                                                .id(account.getId())
+                                                                .accountType(account.getAccountType())
+                                                                .clientId(account.getClient().getId())
+                                                                .balance(account.getBalance())
+                                                                .withdrawAllowed(account.isWithdrawAllowed())
+                                                                .build())
+                                                        .collect(Collectors.toList());
+
+        return accountDTOS;
     }
 
     @Override
@@ -69,8 +83,18 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public List<Account> getAccounts() {
-        return (List<Account>) accountRepository.findAll();
+    public List<AccountDTO> getAccounts() {
+        List<Account> accounts = (List<Account>)accountRepository.findAll();
+        List<AccountDTO> accountDTOS = accounts.stream()
+                .map(account -> AccountDTO.builder()
+                        .id(account.getId())
+                        .accountType(account.getAccountType())
+                        .clientId(account.getClient().getId())
+                        .balance(account.getBalance())
+                        .withdrawAllowed(account.isWithdrawAllowed())
+                        .build())
+                .collect(Collectors.toList());
+        return accountDTOS;
     }
 
     @Override

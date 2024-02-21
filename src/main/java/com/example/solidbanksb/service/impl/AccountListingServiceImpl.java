@@ -2,8 +2,9 @@ package com.example.solidbanksb.service.impl;
 
 import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.model.Account.Account;
+import com.example.solidbanksb.model.Account.AccountDTO;
 import com.example.solidbanksb.model.Account.AccountType;
-import com.example.solidbanksb.model.user.User;
+import com.example.solidbanksb.model.User.User;
 import com.example.solidbanksb.service.AccountListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,15 +22,10 @@ public class AccountListingServiceImpl implements AccountListingService {
         this.accountDao = accountDao;
     }
 
-    @Override
-    public Account getClientAccount(String accountId) throws Exception {
-       return accountDao.getClientAccount(accountId);
-    }
-
 
 
     @Override
-    public List<Account> getClientAccounts() {
+    public List<AccountDTO> getClientAccounts() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -47,12 +43,7 @@ public class AccountListingServiceImpl implements AccountListingService {
     }
 
     @Override
-    public List<Account> getClientAccountsByType(String clientId, AccountType accountType) {
-        return accountDao.getClientAccountsByType(clientId, accountType);
-    }
-
-    @Override
-    public List<Account> getAccounts() {
+    public List<AccountDTO> getAccounts() {
         return accountDao.getAccounts();
     }
 

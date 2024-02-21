@@ -56,10 +56,11 @@ public class AccountController {
                     .body(ResponseMessage.builder().message(String.format("Couldn't retrieve accounts of Client. Error: %s", e.getMessage())).build());
         }
     }
+
     @GetMapping("/{account_id}")
     public ResponseEntity<ResponseMessage> getAccount(@PathVariable String account_id) throws Exception {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder().message(String.format("Account  wit ID %s retrieved", account_id)).account(accountService.getAccount(account_id)).build());
+            return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder().message(String.format("Account  with ID %s retrieved", account_id)).account(accountService.getAccount(account_id)).build());
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -109,6 +110,7 @@ public class AccountController {
         transactionService.create(status, TransactionType.WITHDRAWAL, Double.parseDouble(amount), account_id);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder().message(String.format("Withdrawal of %s from account ID %s successful", amount, account_id)).build());
     }
+
     @Transactional
     @PostMapping("/{account_id}/deposit")
     public ResponseEntity<ResponseMessage> deposit(@PathVariable String account_id, @RequestParam("amount") String amount){
@@ -123,6 +125,7 @@ public class AccountController {
         transactionService.create(status, TransactionType.DEPOSIT, Double.parseDouble(amount), account_id);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseMessage.builder().message(String.format("Deposit of %s from account ID %s successful", amount, account_id)).build());
     }
+
     @GetMapping("/transactions")
     public ResponseEntity<ResponseMessage> getTransactions(){
         try {

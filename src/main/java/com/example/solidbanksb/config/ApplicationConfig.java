@@ -1,6 +1,6 @@
 package com.example.solidbanksb.config;
 
-import com.example.solidbanksb.model.user.UserRepository;
+import com.example.solidbanksb.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

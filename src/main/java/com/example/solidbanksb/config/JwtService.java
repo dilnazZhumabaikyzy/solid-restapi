@@ -1,7 +1,7 @@
 package com.example.solidbanksb.config;
 
 
-import com.example.solidbanksb.model.user.User;
+import com.example.solidbanksb.model.User.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

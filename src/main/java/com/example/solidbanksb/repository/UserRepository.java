@@ -1,5 +1,6 @@
-package com.example.solidbanksb.model.user;
+package com.example.solidbanksb.repository;
 
+import com.example.solidbanksb.model.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

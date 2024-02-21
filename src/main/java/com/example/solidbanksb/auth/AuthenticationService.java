@@ -2,9 +2,9 @@ package com.example.solidbanksb.auth;
 
 import com.example.solidbanksb.config.JwtService;
 
-import com.example.solidbanksb.model.user.UserRepository;
-import com.example.solidbanksb.model.user.User;
-import com.example.solidbanksb.model.user.Role;
+import com.example.solidbanksb.repository.UserRepository;
+import com.example.solidbanksb.model.User.User;
+import com.example.solidbanksb.model.User.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

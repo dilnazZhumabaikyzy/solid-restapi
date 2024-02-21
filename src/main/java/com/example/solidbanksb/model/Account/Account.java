@@ -1,7 +1,7 @@
 package com.example.solidbanksb.model.Account;
 
 //import jakarta.persistence.*;
-import com.example.solidbanksb.model.user.User;
+import com.example.solidbanksb.model.User.User;
 import jakarta.persistence.*;
 import lombok.*;
 

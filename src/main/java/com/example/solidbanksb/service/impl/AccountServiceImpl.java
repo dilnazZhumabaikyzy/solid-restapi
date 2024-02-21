@@ -3,16 +3,14 @@ package com.example.solidbanksb.service.impl;
 import com.example.solidbanksb.DAO.AccountDao;
 import com.example.solidbanksb.exceptions.AccountCreationException;
 import com.example.solidbanksb.model.Account.*;
-import com.example.solidbanksb.model.user.User;
-import com.example.solidbanksb.model.user.UserRepository;
+import com.example.solidbanksb.model.User.User;
+import com.example.solidbanksb.repository.UserRepository;
 import com.example.solidbanksb.service.AccountService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
                 clientId = user.getId();
             }
         }
+
 
         Optional<User> userOptional = userRepository.findById(clientId);
         User client = userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found"));

@@ -20,10 +20,10 @@ Java 8, Maven, Spring Tool Suite, IntelliJ IDEA
 Swagger documentation:
    http://localhost:8080/swagger-ui/index.html#/
 
-#### Get all accounts from DB
+#### Get all accounts from DB. Authority ADMIN
  - GET: /accounts
-#### Get accounts for client_id
- - GET: /accounts/{client_id}/client
+#### Get accounts for authenticated user
+ - GET: /accounts/client
 #### Create an account
  - POST: /accounts
 #### Withdraw money amount from account_id
