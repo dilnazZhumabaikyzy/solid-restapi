@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AccountListingService {
     Account getClientAccount(String accountId) throws Exception;
-    List<Account> getClientAccounts(String clientId);
+    List<Account> getClientAccounts();
     List<Account> getClientAccountsByType(String clientId, AccountType accountType);
 
     List<Account> getAccounts();

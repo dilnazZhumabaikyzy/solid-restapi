@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AccountRequest {
     private String accountType;
-    private String clientId;
+    private int clientId;
     private double balance = 0;
     private boolean withdrawAllowed;
 }

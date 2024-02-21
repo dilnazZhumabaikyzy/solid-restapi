@@ -13,11 +13,11 @@ import java.util.List;
 public interface AccountRepository extends CrudRepository<Account, String> {
 
     @Query("SELECT * FROM account WHERE client_id = :client_id AND accountType = :account_type")
-    List<Account> findByClientIdAndAccountType(@Param("client_id") String client_id, @Param("account_type") String accountType);
+    List<Account> findByClientIdAndAccountType(@Param("client_id") Integer client_id, @Param("account_type") String accountType);
 
     @Query("SELECT * FROM account WHERE client_id = :client_id AND id = :id")
-    Account findByClientIdAndId(@Param("client_id") String client_id, @Param("id") String id);
+    Account findByClientIdAndId(@Param("client_id") Integer client_id, @Param("id") String id);
 
-    List<Account> findByClientId(String client_id);
+    List<Account> findByClientId(Integer client_id);
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface AccountDao {
-    List<Account> getClientAccounts(String clientId);
+    List<Account> getClientAccounts(Integer clientId);
     void createNewAccount(Account account) throws AccountCreationException;
     void updateAccount(Account account) throws Exception;
 

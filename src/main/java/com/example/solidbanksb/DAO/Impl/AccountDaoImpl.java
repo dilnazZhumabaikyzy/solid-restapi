@@ -22,8 +22,7 @@ public class AccountDaoImpl implements AccountDao {
     private final AccountRepository accountRepository;
     List<Account> accountList = new ArrayList<>();
     @Override
-    public List<Account> getClientAccounts(String clientId) {
-
+    public List<Account> getClientAccounts(Integer clientId) {
         return (List<Account>) accountRepository.findByClientId(clientId);
     }
 
@@ -54,8 +53,8 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public List<Account> getClientAccountsByType(String clientId, AccountType accountType) {
-        accountRepository.findByClientIdAndAccountType(clientId, accountType.getType());
-        List<Account> filteredAccounts = accountRepository.findByClientIdAndAccountType(clientId, accountType.getType());
+        accountRepository.findByClientIdAndAccountType(Integer.parseInt(clientId), accountType.getType());
+        List<Account> filteredAccounts = accountRepository.findByClientIdAndAccountType(Integer.parseInt(clientId), accountType.getType());
 
         if (filteredAccounts.isEmpty()) {
             throw new NoSuchElementException("No accounts found for client " + clientId + " with account type " + accountType);

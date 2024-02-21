@@ -1,27 +1,25 @@
+CREATE TABLE _user (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       username VARCHAR(250) UNIQUE,
+                       password VARCHAR(250),
+                       role VARCHAR(50)
+);
+
+
+CREATE SEQUENCE _user_seq START WITH 1;
+
 CREATE TABLE ACCOUNT (
                          id VARCHAR(250) PRIMARY KEY,
                          account_type VARCHAR(255),
-                         client_id VARCHAR(255),
+                         client_id INT,
                          balance DOUBLE,
-                         withdraw_allowed BOOLEAN
+                         withdraw_allowed BOOLEAN,
+                         FOREIGN KEY (client_id) REFERENCES _user(id)
 );
 
--- CREATE TABLE USERS (
---     id INT AUTO_INCREMENT  PRIMARY KEY,
---     username VARCHAR(250) UNIQUE,
---     password VARCHAR(250)
--- );
 
-CREATE TABLE _user (
-                      id INT AUTO_INCREMENT PRIMARY KEY,
-                      username VARCHAR(250) UNIQUE,
-                      password VARCHAR(250),
-                      role VARCHAR(50)
-);
-CREATE SEQUENCE _user_seq START WITH 1;
-
-INSERT INTO ACCOUNT (id, account_type, client_id, balance, withdraw_allowed)
-VALUES ('001000001', 'SAVING', '1', 1000.0, true);
+-- INSERT INTO ACCOUNT (id, account_type, client_id, balance, withdraw_allowed)
+-- VALUES ('001000001', 'SAVING', '1', 1000.0, true);
 --
 -- INSERT INTO ACCOUNT (id, account_type, client_id, balance, withdraw_allowed)
 -- VALUES ('001000002', 'CHECKING', '1', 500.0, true);

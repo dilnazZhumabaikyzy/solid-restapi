@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,9 @@ public class AccountController {
     private AccountDepositService accountDepositService;
     @Autowired
     private TransactionService transactionService;
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping()
     public ResponseEntity<ResponseMessage>  getAccounts() {
         try {
@@ -41,14 +45,15 @@ public class AccountController {
                     .body(ResponseMessage.builder().message("Couldn't retrieve accounts. Error: " + e.getMessage()).build());
         }
     }
-    @GetMapping("/{client_id}/client")
-    public ResponseEntity<ResponseMessage> getClientAccounts(@PathVariable String client_id) {
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/client")
+    public ResponseEntity<ResponseMessage> getClientAccounts() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder().message(String.format("All accounts of Client %s database retrieved", client_id)).accountList(accountListingService.getClientAccounts(client_id)).build());
+            return ResponseEntity.status(HttpStatus.OK).body(ResponseMessage.builder().message("All accounts of Client database retrieved").accountList(accountListingService.getClientAccounts()).build());
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ResponseMessage.builder().message(String.format("Couldn't retrieve accounts of Client %s. Error: %s", client_id, e.getMessage())).build());
+                    .body(ResponseMessage.builder().message(String.format("Couldn't retrieve accounts of Client. Error: %s", e.getMessage())).build());
         }
     }
     @GetMapping("/{account_id}")

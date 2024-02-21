@@ -1,8 +1,8 @@
 package com.example.solidbanksb.model.Account;
 
 //import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.solidbanksb.model.user.User;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -14,10 +14,12 @@ import lombok.*;
 @Entity
 @Builder
 public class Account{
-
     private @Id String id;
     private String accountType;
-    private String clientId;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id") // Name of the foreign key column in the ACCOUNT table
+    private User client;
     private double balance = 0;
     private boolean withdrawAllowed;
 
@@ -27,7 +29,7 @@ public class Account{
         return "\nAccount information \n" +
                 " - accountType: " + accountType + "\n" +
                 " - id: " + id + "\n" +
-                " - clientId: " + clientId + "\n"+
+                " - clientId: " + client.getId() + "\n"+
                 " - balance: " + balance +  "\n"+
                 " - withdrawAllowed=" + withdrawAllowed;
     }
