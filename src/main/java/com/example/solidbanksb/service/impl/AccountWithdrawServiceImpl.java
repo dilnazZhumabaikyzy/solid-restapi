@@ -22,6 +22,7 @@ public class AccountWithdrawServiceImpl implements AccountWithdrawService {
 
         Account account = accountDao.getClientAccount(accountId);
         if (!account.isWithdrawAllowed()){
+            System.out.println(account.isWithdrawAllowed());
             throw new WithdrawalNotAllowedException(accountId);
         }
 
